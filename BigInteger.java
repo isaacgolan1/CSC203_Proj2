@@ -1,58 +1,55 @@
 import java.util.*;
 
 public class BigInteger {
-    private Node head;
-    private Node tail;
+    private LinkedList num1;
+    private LinkedList num2;
+    private LinkedList answer;
     private int size;
 
-    private class Node {
-        private int digit;
-        private Node next;
 
-        public Node(int digit) {
-            this.digit = digit;
-            this.next = null;
-        }
-    }
 
     public BigInteger() {
-        this.head = null;
-        this.tail = null;
+        this.num1 = null;
+        this.num2 = null;
         this.size = 0;
     }
-
-    public BigInteger(String s) {
-        this();
-        for (int i = s.length() - 1; i >= 0; i--) {
-            addFirst(s.charAt(i) - '0');
-        }
+    public void setNum1(LinkedList L){
+        this.num1 = L;
     }
-
-    public BigInteger add(BigInteger other) {
-        BigInteger result = new BigInteger();
+    public void setNum2(LinkedList W){
+        this.num2 = W;
+    }
+    public void setAnswer(LinkedList N){
+        this.answer = N;
+    }
+    public void add() {
         int carry = 0;
-        Node curr1 = this.head;
-        Node curr2 = other.head;
+        Node curr1 = this.num1.getHead();
+        Node curr2 = this.num2.getHead();
+        int sum = 0;
         while (curr1 != null || curr2 != null) {
-            int sum = carry;
+            sum = 0;
+            if (carry > 0) {
+                sum = carry;
+            }
+            carry = 0;
             if (curr1 != null) {
-                sum += curr1.digit;
-                curr1 = curr1.next;
+                sum += curr1.getDigit();
+                curr1 = curr1.getNext();
             }
             if (curr2 != null) {
-                sum += curr2.digit;
-                curr2 = curr2.next;
+                sum += curr2.getDigit();
+                curr2 = curr2.getNext();
             }
             carry = sum / 10;
-            result.addLast(sum % 10);
+            answer.addStart(sum % 10);
         }
         if (carry > 0) {
-            result.addLast(carry);
+            answer.addStart(carry);
         }
-        return result;
     }
 
-    public BigInteger multiply(BigInteger other) {
+    public Integer multiply() {
         BigInteger result = new BigInteger();
         Node curr1 = this.head;
         int i = 0;
@@ -78,7 +75,7 @@ public class BigInteger {
         return result;
     }
 
-    public BigInteger exponentiate(int n) {
+    public Integer exponentiate(int n) {
         if (n == 0) {
             return new BigInteger("1");
         }
@@ -90,56 +87,5 @@ public class BigInteger {
         }
     }
 
-    private BigInteger copy() {
-        BigInteger copy = new BigInteger();
-        Node curr = this.head;
-        while (curr != null) {
-            copy.addLast(curr.digit);
-            curr = curr.next;
-        }
-        return copy;
-    }
-
-    private void addFirst(int digit) {
-        Node newNode = new Node(digit);
-        if (this.head == null) {
-            this.head = newNode;
-            this.tail = newNode;
-        } else {
-            newNode.next = this.head;
-            this.head = newNode;
-        }
-        this.size++;
-    }
-
-    private void addLast(int digit) {
-        Node newNode = new Node(digit);
-        if (this.head == null) {
-            this.head = newNode;
-            this.tail = newNode;
-        } else {
-            this.tail.next = newNode;
-            this.tail = newNode;
-        }
-        this.size++;
-    }
-
 }
-
-//    @Override
-//    public String toString() {
-//        if (this.size == 0) {
-//            return "0";
-//        }
-//
-//        StringBuilder sb = new StringBuilder();
-//        Node curr = this.head;
-//
-//        while (curr != null) {
-//            sb.insert(0, curr.data);
-//            curr = curr.next;
-//        }
-//
-//        return sb.toString();
-//    }
 

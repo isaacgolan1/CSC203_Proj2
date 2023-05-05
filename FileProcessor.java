@@ -15,7 +15,37 @@ public class FileProcessor {
             while (scan.hasNext()) {
                 // TODO: Process each line of the input file here.
                 String line = scan.nextLine();
-                System.out.println(line);
+                LinkedList num1 = new LinkedList();
+                LinkedList num2 = new LinkedList();
+                LinkedList answer = new LinkedList();
+                String[] strings = line.split(" ");
+                BigInteger compute = new BigInteger();
+                compute.setAnswer(answer);
+                for (int i = strings[0].length()-1; i >= 0 ; i--) {
+                    char ch = strings[0].charAt(i);
+                    num1.add((int) (ch));
+                }
+                if (strings[1].equals("^")){
+                    for (int i = strings[0].length()-1; i >= 0 ; i--) {
+                        char ch = strings[0].charAt(i);
+                        num2.add((int) (ch));
+                    }
+                    int exponent = Integer.parseInt(strings[2]);
+                    compute.exponentiate(exponent);
+                }
+                else {
+                    for (int i = strings[2].length()-1; i >= 0 ; i--) {
+                        char ch = strings[2].charAt(i);
+                        num2.add((int) (ch));
+                    }
+                    compute.setNum1(num1);
+                    compute.setNum2(num2);
+                    if (strings[1].equals("+")) {
+                        compute.add();
+                    } else if (strings[1].equals("*")) {
+                        compute.multiply();
+                    }
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + infile.getPath());

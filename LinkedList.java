@@ -1,16 +1,6 @@
-public class LinkedList<Integer> {
-    private Node<Integer> head;
+public class LinkedList {
+    private Node head;
     private int size;
-
-    private static class Node<Integer> {
-        private Integer value;
-        private Node<Integer> next;
-
-        public Node(Integer value) {
-            this.value = value;
-            this.next = null;
-        }
-    }
 
     public LinkedList() {
         this.head = null;
@@ -18,28 +8,37 @@ public class LinkedList<Integer> {
     }
 
     public void add(Integer value) {
-        Node<Integer> newNode = new Node<>(value);
-        if (head == null) {
-            head = newNode;
+        Node newNode = new Node(value);
+        if (this.head == null) {
+            this.head = newNode;
         } else {
-            Node<Integer> current = head;
-            while (current.next != null) {
-                current = current.next;
+            Node current = head;
+            while (current.getNext() != null) {
+                current = current.getNext();
             }
-            current.next = newNode;
+            current.setNext(newNode);
         }
         size++;
+    }
+    public void addStart(Integer value) {
+        Node newNode = new Node(value);
+        newNode.setNext(head);
+        head = newNode;
+        size++;
+    }
+    public Node getHead(){
+        return this.head;
     }
 
     public Integer get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        Node<Integer> current = head;
+        Node current = head;
         for (int i = 0; i < index; i++) {
-            current = current.next;
+            current = current.getNext();
         }
-        return current.value;
+        return current.getDigit();
     }
 
     public void remove(int index) {
@@ -47,13 +46,13 @@ public class LinkedList<Integer> {
             throw new IndexOutOfBoundsException();
         }
         if (index == 0) {
-            head = head.next;
+            head = head.getNext();
         } else {
-            Node<Integer> current = head;
+            Node current = head;
             for (int i = 0; i < index - 1; i++) {
-                current = current.next;
+                current = current.getNext();
             }
-            current.next = current.next.next;
+            current.setNext(current.getNext().getNext());
         }
         size--;
     }
