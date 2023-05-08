@@ -3,7 +3,7 @@ import java.util.*;
 public class BigInteger {
     private LinkedList num1;
     private LinkedList num2;
-    private LinkedList answer;
+    private String answer;
     private int size;
 
 
@@ -12,6 +12,7 @@ public class BigInteger {
         this.num1 = null;
         this.num2 = null;
         this.size = 0;
+        this.answer = "";
     }
     public void setNum1(LinkedList L){
         this.num1 = L;
@@ -19,7 +20,10 @@ public class BigInteger {
     public void setNum2(LinkedList W){
         this.num2 = W;
     }
-    public void setAnswer(LinkedList N){
+    public String getAnswer(){
+        return this.answer;
+    }
+    public void setAnswer(String N){
         this.answer = N;
     }
     public void add() {
@@ -34,47 +38,50 @@ public class BigInteger {
             }
             carry = 0;
             if (curr1 != null) {
-                sum += curr1.getDigit();
+                sum += curr1.getDigit() - '0';
                 curr1 = curr1.getNext();
             }
             if (curr2 != null) {
-                sum += curr2.getDigit();
+                sum += curr2.getDigit() - '0';
                 curr2 = curr2.getNext();
             }
             carry = sum / 10;
-            answer.addStart(sum % 10);
+            String answer1 = Integer.toString(sum % 10);
+            this.answer = answer1 + this.answer;
         }
         if (carry > 0) {
-            answer.addStart(carry);
+            String answer2 = Integer.toString(carry);
+            this.answer = answer2 + this.answer;
         }
     }
-
-    public Integer multiply() {
-        BigInteger result = new BigInteger();
-        Node curr1 = this.head;
-        int i = 0;
-        while (curr1 != null) {
-            BigInteger copy = other.copy();
+    public int multiply() {
+        int result = 0;
+        Node leftDigit = this.num1.getHead();
+        int leftDigitPos = 0;
+        while (leftDigit != null) {
             int carry = 0;
-            for (int j = 0; j < i; j++) {
-                copy.addFirst(0);
-            }
-            Node curr2 = copy.head;
-            while (curr2 != null) {
-                int prod = curr1.digit * curr2.digit + carry;
-                carry = prod / 10;
-                result.addLast(prod % 10);
-                curr2 = curr2.next;
+            int digitResult = 0;
+            Node rightDigit = this.num2.getHead();
+            while (rightDigit != null) {
+                int product = (leftDigit.getDigit() - '0') * (rightDigit.getDigit() - '0') + carry;
+                carry = product / 10;
+                digitResult = digitResult * 10 + (product % 10);
+                rightDigit = rightDigit.getNext();
             }
             if (carry > 0) {
-                result.addLast(carry);
+                digitResult = digitResult * 10 + carry;
             }
-            curr1 = curr1.next;
-            i++;
+            for (int i = 0; i < leftDigitPos; i++) {
+                digitResult *= 10;
+            }
+            result += digitResult;
+            leftDigit = leftDigit.getNext();
+            leftDigitPos++;
         }
+        this.answer = Integer.toString(result);
         return result;
     }
-
+    /*
     public Integer exponentiate(int n) {
         if (n == 0) {
             return new BigInteger("1");
@@ -86,6 +93,6 @@ public class BigInteger {
             return this.multiply(half.multiply(half));
         }
     }
-
+    */
 }
 
