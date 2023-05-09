@@ -11,7 +11,8 @@ public class BigNumArithmetic {
             throw new IllegalArgumentException(
                     "Expected exactly 1 argument: a file name.");
         }
-        String filePath = args[0];
+        //String filePath = args[0];
+        String filePath = "SampleInput.txt";
         FileProcessor.processFile(filePath);
     }
 }

@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class FileProcessor {
@@ -15,8 +16,8 @@ public class FileProcessor {
             while (scan.hasNext()) {
                 // TODO: Process each line of the input file here.
                 String line = scan.nextLine();
-                LinkedList num1 = new LinkedList();
-                LinkedList num2 = new LinkedList();
+                linkedList num1 = new linkedList();
+                linkedList num2 = new linkedList();
                 String[] strings = line.split("\\s+");
                 BigInteger compute = new BigInteger();
                 String strnum1 = "";
@@ -27,14 +28,14 @@ public class FileProcessor {
                 }
                 for (int i = strings[0].length()-1; i >= 0 ; i--) {
                     char ch = strings[0].charAt(i);
-                    num1.add((int) (ch));
-                    strnum1 = strnum1 + ch;
+                    num1.add(Character.getNumericValue(ch));
+                    strnum1 = ch + strnum1;
                 }
                 if (strings[1].equals("^")){
                     for (int i = strings[0].length()-1; i >= 0 ; i--) {
                         char ch = strings[0].charAt(i);
-                        num2.add((int) (ch));
-                        strnum2 = strnum2 + ch;
+                        num2.add(Character.getNumericValue(ch));
+                        strnum2 = ch + strnum2;
 
                     }
                     int exponent = Integer.parseInt(strings[2]);
@@ -45,15 +46,15 @@ public class FileProcessor {
                 else {
                     for (int i = strings[2].length()-1; i >= 0 ; i--) {
                         char ch = strings[2].charAt(i);
-                        num2.add((int) (ch));
-                        strnum2 = strnum2 + ch;
+                        num2.add(Character.getNumericValue(ch));
+                        strnum2 = ch + strnum2 ;
                     }
                     compute.setNum1(num1);
                     compute.setNum2(num2);
                     if (strings[1].equals("+")) {
-                        compute.add();
+                        compute.setAnswer(compute.addLinkedLists().Read());
                     } else if (strings[1].equals("*")) {
-                        compute.multiply();
+                        compute.setAnswer(compute.multiply().Read());
                     }
                 }
                 System.out.println(strnum1 + " " + strings[1] + " " + strnum2 + " = " + compute.getAnswer());
