@@ -15,4 +15,9 @@ public class Node {
     public Integer getDigit(){
         return this.digit;
     }
+
+//    public void setDigit(char newDigit)
+//    {
+//        this.digit = newDigit;
+//    }
 }

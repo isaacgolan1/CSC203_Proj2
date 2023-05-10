@@ -1,5 +1,7 @@
 import java.util.*;
-import java.util.LinkedList;
+//import java.util.LinkedList;
+
+import static java.lang.Integer.parseInt;
 
 public class BigInteger {
     private linkedList num1;
@@ -21,6 +23,20 @@ public class BigInteger {
     public void setNum2(linkedList W){
         this.num2 = W;
     }
+
+    public linkedList getNum1()
+    {
+        return this.num1;
+    }
+    public linkedList getNum2()
+    {
+        return this.num1;
+    }
+
+    public String getNum1str(){
+        return this.num1.Read();
+    }
+
     public String getAnswer(){
         return this.answer;
     }
@@ -44,7 +60,7 @@ public class BigInteger {
                 rightDigit = rightDigit.getNext();
             }
             if (carry > 0) {
-                temp.num2.add(carry);
+                temp.num2.addStart(carry);
             }
             carry = 0;
             for (int i = 0; i < leftDigitPos; i++) {
@@ -99,5 +115,48 @@ public class BigInteger {
         }
     }
     */
-}
 
+    public linkedList exponentiate(int base, int expo)
+    {
+        linkedList result = new linkedList();
+//        System.out.println("read num1: "+ this.num1.getHead().getDigit());
+//        System.out.println("read num2: "+ this.num2.getHead().getDigit());
+        System.out.println("read base, expo: " + base + " , " + expo);
+
+//        intexpo = this.num2.getHead().getDigit();
+        if (expo  == 0){
+            result.add(1);
+            return result;
+        }
+        else if(expo % 2 ==0)
+        {
+            return exponentiate(base * base, expo / 2);
+        }
+        else
+        {
+            linkedList baseList = new linkedList();
+            BigInteger computeExp = new BigInteger();
+            linkedList expList = new linkedList();
+            BigInteger computeBaseProd = new BigInteger();
+            expList.add(expo);
+            baseList.add(base);
+            computeBaseProd.setNum1(baseList);
+            computeBaseProd.setNum2(baseList);
+            computeExp.setNum1(baseList);
+            computeExp.setNum2(exponentiate(base*base, (expo - 1) / 2));
+            return computeExp.multiply();
+        }
+//        result.addStart(420);
+//        return result;
+//        return null;
+    }
+
+//    public linkedList exponentiate(int exponent)
+//    {
+//        if (exponent == 0) {
+//            // Base case: any number raised to 0 is 1
+//            linkedList result = new linkedList();
+//            result.add(1);
+//            return result;
+//    }
+}
