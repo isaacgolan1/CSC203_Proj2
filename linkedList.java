@@ -9,6 +9,11 @@ public class linkedList {
     public Integer getSize(){
         return this.size;
     }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
     public linkedList Reverse() {
         linkedList reversed = new linkedList();
         Node curr = this.head;
@@ -37,16 +42,16 @@ public class linkedList {
         head = newNode;
         size++;
     }
-    public void updateDigit(int index, char newDigit) {
-        if (index < 0 || index >= this.size) {
-            throw new IndexOutOfBoundsException();
-        }
-        Node current = this.head;
-        for (int i = 0; i < index; i++) {
-            current = current.getNext();
-        }
-        current.setDigit(newDigit);
-    }
+//    public void updateDigit(int index, char newDigit) {
+//        if (index < 0 || index >= this.size) {
+//            throw new IndexOutOfBoundsException();
+//        }
+//        Node current = this.head;
+//        for (int i = 0; i < index; i++) {
+//            current = current.getNext();
+//        }
+//        current.setDigit(newDigit);
+//    }
     public Node getHead(){
         return this.head;
     }
@@ -86,6 +91,7 @@ public class linkedList {
         }
         size--;
     }
+
     public int size() {
         return size;
     }
