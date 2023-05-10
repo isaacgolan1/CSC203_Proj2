@@ -10,7 +10,6 @@ public class FileProcessor {
      *
      * @param filePath Path to a file containing arithmetic expressions.
      */
-    public int exponent;
     public static void processFile(String filePath) {
         File infile = new File(filePath);
         try (Scanner scan = new Scanner(infile)) {
@@ -32,28 +31,12 @@ public class FileProcessor {
                     num1.add(Character.getNumericValue(ch));
                     strnum1 = ch + strnum1;
                 }
-                if (strings[1].equals("^"))
-                {
-                    for (int i = strings[0].length()-1; i >= 0 ; i--) {
-                        char ch = strings[0].charAt(i);
-                        num2.add(Character.getNumericValue(ch));
-                        strnum2 = ch + strnum2;
-
-                    }
+                if (strings[1].equals("^")){
                     int exponent = Integer.parseInt(strings[2]);
-                    strnum2 = String.valueOf(exponent);
                     compute.setNum1(num1);
-                    linkedList new2 = new linkedList();
-                    new2.add(exponent);
-                    compute.setNum2(new2);
-                    int base = Integer.parseInt(strnum1);
-                    compute.setAnswer("test");
-//                    System.out.println("compute.num1str rev: " + compute.getNum1str());
-//                    System.out.println("compute.num1str: " + compute.getNum1().Reverse().Read());
-                    System.out.println("strnum1: " + strnum1);
-                    System.out.println("exponent: " + exponent);
-                    compute.setAnswer(compute.exponentiate(base, exponent).Read());
-                    //compute.exponentiate(exponent);
+                    compute.setNum2(num1);
+                    compute.setAnswer(compute.exponentiate(exponent).Read());
+                    System.out.println(strnum1 + " " + strings[1] + " " + exponent + " = " + compute.getAnswer());
                 }
                 else {
                     for (int i = strings[2].length()-1; i >= 0 ; i--) {
@@ -68,8 +51,9 @@ public class FileProcessor {
                     } else if (strings[1].equals("*")) {
                         compute.setAnswer(compute.multiply().Read());
                     }
+                    System.out.println(strnum1 + " " + strings[1] + " " + strnum2 + " = " + compute.getAnswer());
                 }
-                System.out.println(strnum1 + " " + strings[1] + " " + strnum2 + " = " + compute.getAnswer());
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + infile.getPath());
