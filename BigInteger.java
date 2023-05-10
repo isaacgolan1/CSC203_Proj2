@@ -118,38 +118,28 @@ public class BigInteger {
 
     public linkedList exponentiate(int base, int expo)
     {
-        linkedList result = new linkedList();
-//        System.out.println("read num1: "+ this.num1.getHead().getDigit());
-//        System.out.println("read num2: "+ this.num2.getHead().getDigit());
-        System.out.println("read base, expo: " + base + " , " + expo);
-
-//        intexpo = this.num2.getHead().getDigit();
-        if (expo  == 0){
-            result.add(1);
-            return result;
-        }
-        else if(expo % 2 ==0)
+        int temp;
+        if (expo == 0) temp = 1;
+        int y = 1;
+        while (expo > 1)
         {
-            return exponentiate(base * base, expo / 2);
+            if(expo % 2 == 0)
+            {
+                base = base * base;
+                expo = expo / 2;
+            }
+            else
+            {
+                y = base * y;
+                base = base * base;
+                expo = (expo - 1)/2;
+            }
         }
-        else
-        {
-            linkedList baseList = new linkedList();
-            BigInteger computeExp = new BigInteger();
-            linkedList expList = new linkedList();
-            BigInteger computeBaseProd = new BigInteger();
-            expList.add(expo);
-            baseList.add(base);
-            computeBaseProd.setNum1(baseList);
-            computeBaseProd.setNum2(baseList);
-            computeExp.setNum1(baseList);
-            computeExp.setNum2(exponentiate(base*base, (expo - 1) / 2));
-            return computeExp.multiply();
-        }
-//        result.addStart(420);
-//        return result;
-//        return null;
+        linkedList ans = new linkedList();
+        ans.add(base * y);
+        return ans;
     }
+
 
 //    public linkedList exponentiate(int exponent)
 //    {
